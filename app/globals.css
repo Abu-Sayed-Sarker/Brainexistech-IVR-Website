@@ -4,11 +4,27 @@ html{
     scroll-behavior: smooth;
 }
 
-@theme {
-    --color-primary: #6252D4;
-    --color-secondary: #D1C1FF;
+body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-unbounded);
 }
 
+@theme {
+    --color-primary: #4733C9;
+    --color-secondary: #706FE5;
+    --color-background: #FFFFFF;
+    --color-foreground: #000000;
+}
+
+
+.primary-btn {
+    @apply px-12 py-4 rounded-2xl bg-gradient-to-b from-secondary to-primary to-80% text-white font-bold transition-all hover:scale-105 shadow-[0_15px_30px_-5px_rgba(255,255,255,0.3)] cursor-pointer overflow-hidden;
+}
+
+.outline-btn {
+    @apply px-12 py-4 rounded-2xl border-[1.5px] border-white text-white font-bold transition-all hover:scale-105 cursor-pointer bg-transparent hover:bg-gradient-to-b hover:from-secondary hover:to-primary hover:shadow-[0_15px_30px_-5px_rgba(255,255,255,0.3)] hover:border-transparent;
+}
 
 
 
@@ -44,7 +60,7 @@ html{
 }
 
 .swiper-pagination-bullet-active {
-    background: #6366f1 !important;
+    background: var(--color-primary) !important;
     width: 32px !important;
 }
 
@@ -94,11 +110,11 @@ html{
 
     0%,
     100% {
-        box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        box-shadow: 0 0 20px rgba(71, 51, 201, 0.5);
     }
 
     50% {
-        box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+        box-shadow: 0 0 40px rgba(71, 51, 201, 0.8);
     }
 }
 
@@ -122,8 +138,16 @@ html{
 
 .animate-fade-in-up {
     animation: fade-in-up 0.8s ease-out forwards;
+    opacity: 0;
 }
 
 .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.text-gradient-purple {
+    background: linear-gradient(to bottom, #60a5fa, #4733C9, #706FE5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }

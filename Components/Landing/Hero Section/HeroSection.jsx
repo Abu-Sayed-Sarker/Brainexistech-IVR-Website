@@ -1,123 +1,121 @@
 "use client";
-import BackgroundPaths from "@/Libs/Background/WaveBackground";
-import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import KeyComponents from "./KeyComponents";
+import { Globe, Mic, Star } from "lucide-react";
+import Image from "next/image";
+
+const ParticleEffect = () => {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Background radial highlight */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(49,34,179,0.15),transparent_70%)]"></div>
+
+      {/* Intense Glow effects */}
+      <div className="absolute top-1/4 -left-20 w-[600px] h-[600px] bg-primary/25 blur-[120px] rounded-full animate-pulse-glow"></div>
+      <div className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-secondary/20 blur-[120px] rounded-full animate-pulse-glow" style={{ animationDelay: '2s' }}></div>
+
+      {/* Dynamic particles */}
+      {[...Array(45)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-[3px] h-[3px] bg-yellow-400 rounded-full"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            boxShadow: '0 0 15px 3px rgba(250, 204, 21, 0.6)',
+            animation: `fade-in ${4 + Math.random() * 6}s infinite ease-in-out, pulse-glow ${2 + Math.random() * 2}s infinite alternate`,
+            animationDelay: `${Math.random() * 8}s`,
+            opacity: 0.4 + Math.random() * 0.4
+          }}
+        />
+      ))}
+
+      {/* More visible grid pattern */}
+      <div className="absolute inset-0 opacity-[0.1]"
+        style={{ backgroundImage: 'radial-gradient(circle at 1.5px 1.5px, #fff 1.5px, transparent 0)', backgroundSize: '60px 60px' }}>
+      </div>
+
+      {/* Floating lines decoration */}
+      <div className="absolute top-1/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+      <div className="absolute top-2/3 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-secondary/15 to-transparent"></div>
+    </div>
+  );
+};
 
 export default function HeroSection() {
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setLastScrollY(currentScrollY);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollY]);
   return (
-    <BackgroundPaths>
-      <div className="relative">
-        {/* Header */}
-        <header className="relative z-10 flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 lg:px-8 py-4 sm:py-6 gap-4">
-          <Link href="/" className="flex items-center space-x-2">
-            <Image
-              src="/Main Image/logo.webp"
-              alt="Logo"
-              width={100}
-              height={400}
-              className="w-full h-auto"
-            />
-          </Link>
+    <section className="relative min-h-screen flex flex-col items-center justify-center bg-[#090518] text-white overflow-hidden py-24 px-6">
+      <ParticleEffect />
 
-          <div className="hidden lg:flex items-center space-x-4 px-6 py-2 bg-radial to-primary from-secondary text-white rounded-full transition-all duration-500 cursor-pointer">
-            <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-            <span className="text-sm">Powered by Advanced AI Technology</span>
-          </div>
+      {/* Top Header Section */}
+      <div className="relative z-10 flex flex-col items-center mb-8 animate-fade-in">
+        <Image src="/Main Image/2bff6837b99fdf61b3392925a78dccf3732286b9.png" alt="Logo" width={200} height={200} className="pb-4" />
 
-          <div className="flex items-center space-x-4">
-            <a
-              href="#footer"
-              className="px-4 sm:px-6 lg:px-8 py-2 bg-radial to-primary from-secondary border-2 border-blue-400 rounded-full text-sm sm:text-base lg:text-lg hover:bg-radial hover:to-secondary hover:from-primary transition-all duration-500 cursor-pointer text-white"
-            >
-              Contact Info
-            </a>
-          </div>
-        </header>
-
-        {/* Main Content */}
-        <main className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-8 lg:px-16 py-10 sm:py-16 lg:py-20 gap-8 lg:gap-0">
-          {/* Left Content */}
-          <div className="flex-1 max-w-2xl text-white text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-6 sm:mb-8">
-              We Build Agentic AI Solutions for Your Business Needs
-            </h1>
-
-            <p className="text-base sm:text-lg text-gray-300 mb-8 sm:mb-12 leading-relaxed italic">
-              Our AI-driven agents are designed to seamlessly integrate into
-              your business, providing automated support, managing tasks, and
-              enhancing customer experiences round the clock. Whether it's
-              scheduling, customer service, or data processing, our intelligent
-              agents work tirelessly to optimize your operations and drive
-              efficiency.
-            </p>
-
-            <div className="flex justify-center items-center mt-8 lg:mt-0">
-              <div className="relative block md:hidden">
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-
-                {/* Robot Image */}
-                <Image
-                  src="/Main Image/1d4e31f113f5aae2bee49750480e42c3b3e09294 (1).png"
-                  width={500}
-                  height={500}
-                  alt="AI Robot Assistant"
-                  className="w-64 sm:w-80 lg:w-96 xl:w-[500px] h-auto relative z-10 drop-shadow-2xl"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <a
-                href="#appointment"
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-blue-400 rounded-full text-base sm:text-lg hover:bg-radial hover:to-secondary hover:from-primary hover:bg-opacity-20 transition-all cursor-pointer text-center"
-              >
-                Get Appointment
-              </a>
-              <a
-                href="#ai-agent"
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-radial to-primary from-secondary border-2 border-blue-400 rounded-full text-base sm:text-lg hover:bg-radial hover:to-secondary hover:from-primary transition-all duration-500 cursor-pointer text-center"
-              >
-                Talk with our Agent
-              </a>
-            </div>
-          </div>
-
-          {/* Right Content - Robot */}
-          <div className="flex-1 flex justify-center items-center mt-8 lg:mt-0">
-            <div className="relative hidden md:block">
-              {/* Glow effect */}
-              <div className="absolute inset-0 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-
-              {/* Robot Image */}
-              <Image
-                src="/Main Image/1d4e31f113f5aae2bee49750480e42c3b3e09294 (1).png"
-                width={500}
-                height={500}
-                alt="AI Robot Assistant"
-                className="w-64 sm:w-80 lg:w-96 xl:w-[500px] h-auto relative z-10 drop-shadow-2xl"
-              />
-            </div>
-          </div>
-        </main>
-        <div className={`absolute bottom-0 w-full backdrop-blur-sm rounded-t-2xl z-30 ${lastScrollY > 50 ? 'h-[500px] overflow-y-auto' : 'h-0'} transition-all duration-700 ease-in-out`}>
-          <KeyComponents />
+        {/* Dynamic Badge */}
+        <div className="flex items-center gap-3 px-5 py-2 rounded-full border border-primary/20 bg-primary/10 backdrop-blur-xl shadow-inner">
+          <Globe className="w-4 h-4 text-blue-400 animate-pulse" />
+          <span className="text-xs sm:text-sm font-light tracking-wide text-gray-300">
+            Empowering Businesses in 8+ Countries Worldwide
+          </span>
         </div>
       </div>
-    </BackgroundPaths>
+
+      {/* Trust & Proof Section */}
+      <div className="relative z-10 flex flex-col items-center mb-12 animate-fade-in-up">
+        <div className="flex items-center gap-1.5 bg-[#1DBF73] px-4 py-1.5 rounded-full mb-4 shadow-[0_0_20px_rgba(29,191,115,0.4)] transition-transform hover:scale-105">
+          <span className="text-xs font-bold italic tracking-tighter">fiverr.</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-2xl font-semibold">4.9</span>
+          <div className="flex gap-0.5 text-yellow-500">
+            {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-current drop-shadow-[0_0_5px_rgba(234,179,8,0.5)]" />)}
+          </div>
+        </div>
+      </div>
+
+      {/* Hero Content */}
+      <div className="relative z-10 max-w-5xl text-center mb-16">
+        <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tighter leading-[0.95] animate-fade-in-up">
+          AI-Powered IVR That <br />
+          <span className="text-gradient-purple drop-shadow-[0_0_30px_rgba(71,51,201,0.6)]">
+            Talks Like a Human
+          </span>
+        </h1>
+        <p className="text-lg md:text-2xl text-gray-400 font-light max-w-3xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          Voice-first ordering & appointment booking powered by conversational AI.
+        </p>
+      </div>
+
+      {/* Primary Actions */}
+      <div className="relative z-10 flex flex-col sm:flex-row gap-6 mb-40 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+        <button className="primary-btn">
+          <span className="relative z-10">Try Demo</span>
+        </button>
+        <button className="outline-btn">
+          Book appointment
+        </button>
+      </div>
+
+      {/* Floating Navigation */}
+      <div className="fixed bottom-10 left-6 right-6 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-50 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+        <nav className="flex items-center justify-between sm:justify-start gap-4 sm:gap-14 px-10 py-5 rounded-2xl bg-gradient-to-b from-secondary to-primary to-80% shadow-[0_20px_50px_rgba(0,0,0,0.4)] border border-white/10">
+          <Link href="/" className="hidden sm:block text-sm text-white/90 hover:text-white transition-colors">Home</Link>
+          <Link href="#services" className="text-sm text-white/90 hover:text-white transition-colors">Services</Link>
+
+          <Link href="#" className="flex items-center gap-2 px-5 py-2 rounded-lg border border-white/30 text-white transition-all hover:bg-white/10 group">
+            <div className="p-1 bg-white rounded-md">
+              <Mic className="w-4 h-4 text-primary" />
+            </div>
+            <span className="text-sm font-bold tracking-tight">Try Demo</span>
+          </Link>
+
+          <Link href="#features" className="text-sm text-white/90 hover:text-white transition-colors">Features</Link>
+          <Link href="#about" className="hidden sm:block text-sm text-white/90 hover:text-white transition-colors">About</Link>
+        </nav>
+      </div>
+
+      {/* Decorative center line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-40 bg-gradient-to-b from-primary/50 via-primary/10 to-transparent"></div>
+    </section>
   );
 }
+
